@@ -1,6 +1,11 @@
 package com.mindty.api;
 
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+
+import com.mindty.persistence.ProfesorEM;
+
 
 @Path("/cursos")
 public class CursosAPI {
@@ -46,7 +51,17 @@ public class CursosAPI {
 	@Path("/{idc}/modulos")
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	// Codigo get 
+	public Response getModulos(@HeaderParam("token") String token) {
+		
+		try {
+			
+			return Response.status(202).entity(ProfesorEM.getInstance().getListaTotalModulos()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(500).entity("Ha habido un error al pedir los pedidos").build();
+		}
+		
+	}
 	
 	
 	

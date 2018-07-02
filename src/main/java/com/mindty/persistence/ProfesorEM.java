@@ -142,6 +142,32 @@ public class ProfesorEM extends EntityManager {
 		return listaCursoModulo;
 	}
 
+	public List<Modulo> getListaTotalModulos() {
+
+		List<Curso> listaCurso = new ArrayList<Curso>();
+		List<Modulo> listaCursoModulo = new ArrayList<Modulo>();
+		try {
+			/* Hibernate */
+
+			Session session = factory.openSession();
+			Transaction t = session.beginTransaction();
+
+			listaCurso = session.createQuery("FROM Curso", Curso.class).getResultList();
+			System.out.println("Aqui llego3");
+			for (Curso curso : listaCurso) {
+				listaCursoModulo = curso.getModulo();
+			}
+
+			t.commit();
+			session.close();
+			/* Hibernate */
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return listaCursoModulo;
+	}
+
 	public List<Usuario> getListaAlumnos(int nIdModulo) {
 
 		List<Curso> listaCurso = new ArrayList<Curso>();
