@@ -6,12 +6,15 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.mindty.modelos.Curso;
+import com.mindty.persistence.CursoEM;
 import com.mindty.persistence.ProfesorEM;
 
 @Path("/cursos")
@@ -21,48 +24,70 @@ public class CursosAPI {
 
 	// david
 
-	// Cursos
-	/*
-	 * @Path("")
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON)
-	 * 
-	 * @GET // Codigo get
-	 * 
-	 * 
-	 * 
-	 * @Path("")
-	 * 
-	 * @Consumes(MediaType.APPLICATION_JSON)
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON)
-	 * 
-	 * @POST //Codigo POST
-	 * 
-	 * 
-	 * @Path("/{idc}")
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON)
-	 * 
-	 * @GET
-	 * 
-	 * 
-	 * 
-	 * @Path("/{idc}")
-	 * 
-	 * @Consumes(MediaType.APPLICATION_JSON)
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON)
-	 * 
-	 * @PUT
-	 * 
-	 * 
-	 * @Path("/{idc}")
-	 * 
-	 * @Produces(MediaType.APPLICATION_JSON)
-	 * 
-	 * @DELETE
-	 */
+	//david
+	
+		/* curl http://localhost:8080/MindtyREST/api/cursos -v */
+		@Path("")
+		@Produces(MediaType.APPLICATION_JSON)
+		@GET
+		public Response getCursos() {
+			try {
+				return Response.status(202).entity(CursoEM.getInstance().getListaCursos()).build();
+			} catch (Exception e) {
+				return Response.status(500).entity("Internal Server Error").build();
+			} 
+		} 
+		
+		/* curl -H "Content-Type: application/json" -X POST -d '{"idCurso":0,"nombreCurso":"Prueba","codCurso":"ABC 12345","horasCurso":"210","formador":"5"}' http://localhost:8080/MindtyREST/api/cursos -v */
+		@Path("")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		@POST
+		public Response addCursos(Curso nuevoCurso) {
+			try {
+				return Response.status(202).entity(CursoEM.getInstance().addCurso(nuevoCurso)).build();
+			} catch (Exception e) {
+				return Response.status(500).entity("Internal Server Error").build();
+			} 
+		}
+		
+		/* curl http://localhost:8080/MindtyREST/api/cursos/1 -v */
+		@Path("/{idc}")
+		@Produces(MediaType.APPLICATION_JSON)
+		@GET
+		public Response getCurso(@PathParam("idc") int idc) {
+			try {
+				return Response.status(202).entity(CursoEM.getInstance().getCurso(idc)).build();
+			} catch (Exception e) {
+				return Response.status(500).entity("Internal Server Error").build();
+			} 
+		}
+		
+		
+		@Path("/{idc}")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		@PUT
+		public Response updateCurso(@PathParam("idc") int idc) {
+			try {
+				return Response.status(202).entity(CursoEM.getInstance()).build();
+			} catch (Exception e) {
+				return Response.status(500).entity("Internal Server Error").build();
+			} 
+		}
+		
+		@Path("/{idc}")
+		@Produces(MediaType.APPLICATION_JSON)
+		@DELETE
+		public Response deleteCurso(@PathParam("idc") int idc) {
+			try {
+				return Response.status(202).entity(CursoEM.getInstance()).build();
+			} catch (Exception e) {
+				return Response.status(500).entity("Internal Server Error").build();
+			} 
+		}
+		
+		
 	////////////////////////////////////////////////////////////////
 	// raul
 	// Curso/modulos
