@@ -1,10 +1,12 @@
 package com.mindty.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.mindty.modelos.Curso;
 import com.mindty.modelos.Usuario;
 
 
@@ -41,7 +43,6 @@ public class CoordinadorEM extends EntityManager {
 
 		return usuarios;
 	}
-
 
 
 	public Usuario getProfe(int idU) {

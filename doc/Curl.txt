@@ -1,0 +1,11 @@
+
+Raul:
+GET:
+curl GET http://localhost:8080/MindtyREST/api/cursos/1/modulos
+
+PUT:
+curl -X POST http://localhost:8080/MindtyREST/api/cursos/2/modulos
+
+DELETE
+
+curl -X DELETE http://localhost:8080/MindtyREST/api/cursos/1/modulos/2

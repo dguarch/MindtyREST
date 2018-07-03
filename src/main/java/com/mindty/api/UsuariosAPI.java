@@ -14,38 +14,38 @@ public class UsuariosAPI {
 	
 	
 	
-	
-	
-	// IVAN
-	@Path("")
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	// Codigo get 
-	
-	
-	// IVAN
-	@Path("")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	@POST
-	//Codigo POST
-	
-	
-	@Path("/{idu}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
-	
-	
-	
-	@Path("/{idu}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	@PUT
-	
-	
-	@Path("/{idu}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@DELETE
+//	
+//	
+//	// IVAN
+//	@Path("")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@GET
+//	// Codigo get 
+//	
+//	
+//	// IVAN
+//	@Path("")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@POST
+//	//Codigo POST
+//	
+//	
+//	@Path("/{idu}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@GET
+//	
+//	
+//	
+//	@Path("/{idu}")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@PUT
+//	
+//	
+//	@Path("/{idu}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@DELETE
 	
 	
 	

@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 
 import com.mindty.modelos.Curso;
 import com.mindty.modelos.Modulo;
+import com.mindty.modelos.Unidad;
 import com.mindty.modelos.Usuario;
 
 public class ProfesorEM extends EntityManager {
@@ -113,28 +114,25 @@ public class ProfesorEM extends EntityManager {
 		List<Modulo> listaCursoModulo = new ArrayList<Modulo>();
 		try {
 			/* Hibernate */
-
+			System.out.println("Hola");
 			Session session = factory.openSession();
 			Transaction t = session.beginTransaction();
 
 			listaCurso = session.createQuery("FROM Curso", Curso.class).getResultList();
-			System.out.println("Aqui llego3");
+			System.out.println("Aqui llego3" + listaCurso.toString());
 			for (Curso curso : listaCurso) {
 
 				if (curso.getIdCurso() == nIdCurso) {
 					listaCursoModulo = curso.getModulo();
-
+					System.out.println("Lo Encuentro");
+					break;
 				}
 
 			}
 
-			// listaCursoModulo = (List<Curso>) session.createQuery("from Curso WHERE
-			// modulo.idm = :idcurso")
-			// .setInteger("idcurso", nIdCurso).getResultList();
-
 			t.commit();
 			session.close();
-			/* Hibernate */
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,30 +140,46 @@ public class ProfesorEM extends EntityManager {
 		return listaCursoModulo;
 	}
 
-	public List<Modulo> getListaTotalModulos() {
+	public String getModulo(int nIdCurso, int nIdModulo) {
 
 		List<Curso> listaCurso = new ArrayList<Curso>();
 		List<Modulo> listaCursoModulo = new ArrayList<Modulo>();
+		String strNombreModulo = null;
 		try {
 			/* Hibernate */
-
+			System.out.println("Hola");
 			Session session = factory.openSession();
 			Transaction t = session.beginTransaction();
 
 			listaCurso = session.createQuery("FROM Curso", Curso.class).getResultList();
-			System.out.println("Aqui llego3");
+			System.out.println("Aqui llego3" + listaCurso.toString());
 			for (Curso curso : listaCurso) {
-				listaCursoModulo = curso.getModulo();
+
+				if (curso.getIdCurso() == nIdCurso) {
+					listaCursoModulo = curso.getModulo();
+					System.out.println("Lo Encuentrooooo");
+
+				}
+
+				for (Modulo modulo : listaCursoModulo) {
+
+					if (modulo.getIdm() == nIdModulo) {
+						strNombreModulo = modulo.getNombreModulo();
+						System.out.println("Pillo el modulo : " + strNombreModulo);
+
+					}
+				}
+
 			}
 
 			t.commit();
 			session.close();
-			/* Hibernate */
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return listaCursoModulo;
+		return strNombreModulo;
 	}
 
 	public List<Usuario> getListaAlumnos(int nIdModulo) {
@@ -183,8 +197,10 @@ public class ProfesorEM extends EntityManager {
 
 				if (curso.getIdCurso() == nIdModulo) {
 					listaAlumnos = curso.getAlumnos();
+					break;
 
 				}
+				break;
 			}
 
 			// listaCursoModulo = (List<Curso>) session.createQuery("from Curso WHERE
@@ -200,5 +216,35 @@ public class ProfesorEM extends EntityManager {
 
 		return listaAlumnos;
 
+	}
+
+	
+	public boolean eliminarModulo(int idCurso, int idModulo) {
+
+		boolean isOk = false;
+		List<Curso> listaCurso = new ArrayList<Curso>();
+		List<Modulo> listaCursoModulo = new ArrayList<Modulo>();
+		List<Unidad> listaUnidadesEliminar = new ArrayList<Unidad>();
+
+		try {
+			/* Hibernate */
+			System.out.println("Hola");
+			Session session = factory.openSession();
+			Transaction t = session.beginTransaction();
+
+			Modulo deleteModulo = (Modulo) session.createQuery("FROM Modulo WHERE idm=:id", Modulo.class)
+					.setInteger("id", idModulo).getSingleResult();
+
+			System.out.println(deleteModulo.getNombreModulo());
+			session.delete(deleteModulo);
+			isOk=true;
+			t.commit();
+			session.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return isOk;
 	}
 }

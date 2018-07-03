@@ -26,12 +26,17 @@ public class Modulo {
 	@Column
 	private String nombreModulo;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.PERSIST
+    }, fetch = FetchType.EAGER)
 	@JoinTable(name = "modulo_unidad", joinColumns = { @JoinColumn(name = "idModulo") }, inverseJoinColumns = {
 			@JoinColumn(name = "idUnidad") })
 	private List<Unidad> unidad;
 
-	@OneToOne(mappedBy = "modulo")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "modulo")
 	private Nota nota;
 
 	public Modulo() {
