@@ -28,7 +28,28 @@ public class AlumnoEM extends EntityManager {
 	
 
 	/*localizando el usuaruio alumno conectado*/
-	
+	public Modulo getUnidades(int nIdModulo) {
+		Modulo unModulo = new Modulo();
+		
+		try {
+			/* Hibernate */
+			System.out.println("Hola");
+			Session session = factory.openSession();
+			Transaction t = session.beginTransaction();
+
+			unModulo = session.createQuery("FROM Modulo WHERE idm:idModulo", Modulo.class)
+					.setParameter("idModulo", nIdModulo).getSingleResult();
+			
+			t.commit();
+			session.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
+		return unModulo;
+	}
 	public List<Curso> getUsuarioAlumnoCurso(int user) {
 		
 		List<Curso> listaCursoAlumno = new ArrayList<Curso>();
